@@ -54,6 +54,32 @@ def darknet53(input_data, trainable):
 
         return route_1, route_2, input_data
 
+def darknet19(input_data, trainable):
+
+    with tf.variable_scope('darknet'):
+
+        input_data = common.convolutional(input_data, filters_shape=(3, 3, 3, 16), trainable=self.trainable,name='conv0')
+        input_data = common.max_pooling_2d(input_data,ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], data_format=self.data_format,name='max1')
+        input_data = common.convolutional(input_data, filters_shape=(3, 3, 16, 32), trainable=self.trainable,name='conv2')
+        input_data = common.max_pooling_2d(input_data, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1],data_format=self.data_format,name='max3')
+        input_data = common.convolutional(input_data, filters_shape=(3, 3, 32, 64), trainable=self.trainable,name='conv4')
+        input_data = common.max_pooling_2d(input_data, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1],data_format=self.data_format,name='max5')
+        input_data = common.convolutional(input_data, filters_shape=(3, 3, 64, 128), trainable=self.trainable,name='conv6')
+        input_data = common.max_pooling_2d(input_data, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1],data_format=self.data_format,name='max7')
+
+        input_data = common.convolutional(input_data, filters_shape=(3, 3, 128, 256), trainable=self.trainable,name='conv8')
+        route_8_layer = input_data
+        input_data = common.max_pooling_2d(input_data, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1],data_format=self.data_format,name='max9')
+
+        input_data = common.convolutional(input_data, filters_shape=(3, 3, 256, 512), trainable=self.trainable,name='conv10')
+        input_data = common.max_pooling_2d(input_data, ksize=[1, 2, 2, 1], strides=[1, 1, 1, 1],data_format=self.data_format,name='max11')
+
+        input_data = common.convolutional(input_data, filters_shape=(3, 3, 512, 1024), trainable=self.trainable,name='conv12')
+        input_data = common.convolutional(input_data, filters_shape=(1, 1, 1024, 256), trainable=self.trainable,name='conv13')
+        route_13_layer = input_data
+
+        return route_8_layer, route_13_layer, input_data
+
 
 
 

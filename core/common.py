@@ -13,6 +13,12 @@
 
 import tensorflow as tf
 
+def max_pooling_2d(inputs, ksize, strides, data_format,name):
+    """Performs a max pooling"""
+    with tf.variable_scope(name):
+        #max_pooling = tf.layers.max_pooling2d(inputs=inputs,pool_size=pool_size,strides=strides,padding='same',data_format=data_format)
+        max_pooling = tf.nn.max_pool(value=inputs, ksize=ksize, strides=strides, padding='SAME', data_format=data_format, name=name)
+    return max_pooling
 
 def convolutional(input_data, filters_shape, trainable, name, downsample=False, activate=True, bn=True):
 
